@@ -43,7 +43,7 @@ jobs:
         JEST_JUNIT_OUTPUT_DIR: "./junit/test-results.xml"
 
     #  upload-artifact を用いて、先ほど出力した結果の場所を示し、 GitHub Actions に読み込ませてる
-    - users: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v2
       with:
         path: ./junit/test-results.xml
       if: always()  #これより前のステップでジョブが失敗してもこのステップは実行させるという命令を表す
