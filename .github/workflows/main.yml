@@ -1,0 +1,33 @@
+# ワークフローの名前を定義
+name: Damage Calculation Test
+
+# ワークフローを実行する条件(ここではmain-2022ブランチにコミットがpushされたときにワークフローを実行する)
+on:
+  push:
+    branches: [ main-2022 ]
+
+# ワークフローは 1 つ以上の job（ジョブ） で構成される（ここでは　build　という名前の　job　を定義）
+jobs:
+  build:
+  
+# ここからは 「build」 jobの具体的な操作を設定していく
+
+    # このジョブで使う仮想マシンを定義
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    #　　ワークフローがこのリポジトリにアクセスするための準備
+    - uses: actions/checkout@v2
+    
+    # バージョンが v16.14.2 の Node.js を使うための準備
+    - name: Use Node.js v16.14.2  
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.14.2'
+    
+    # リポジトリ直下で yarn install を行う
+    - run: yarn install
+    
+    # リポジトリ直下で yarn test を行う
+    - run: yarn test
